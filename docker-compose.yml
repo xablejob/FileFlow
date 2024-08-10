@@ -1,0 +1,37 @@
+version: "3"
+
+services:
+    # web:
+    #     build:
+    #         context: .
+    #         dockerfile: DockerDjangoDev
+    #     working_dir: /code
+    #     volumes:
+    #         - .:/code
+    #     ports:
+    #         - "8123:8000"
+    #     depends_on:
+    #         - postgres_db
+    #     environment:
+    #         DATABASE_URL: "postgres://user_app:db@postgres_db:5432/db"
+    #         REGION_ID: "00"
+    #         HOST_NAME: "DEV режим"
+    #         REDIS_URL: "redis://redis:6379"
+    postgres_db:
+        shm_size: 512mb
+        image: postgres:15-alpine
+        tmpfs:
+            - /var/lib/postgresql/data
+        environment:
+            POSTGRES_DB: "db"
+            POSTGRES_USER: "user_app"
+            POSTGRES_PASSWORD: "db"
+            POSTGRES_HOST: "postgres_db"
+            POSTGRES_PORT: "5432"
+            POSTGRES_VERSION: 15
+        ports:
+            - "8124:5432"
+    # redis:
+    #     image: "redis:latest"
+    #     ports:
+    #         - "8183:6379"
